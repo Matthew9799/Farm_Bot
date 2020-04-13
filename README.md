@@ -18,3 +18,13 @@
 * Currently the system will ban IP addresses that generate more than 20 failed attempts per mintue. They will be banned for 10 mintues. If an IP generates more than 500 failed attempts in a week they are permanently banned.
 * System will optimize database weekly in order to improve call responsiveness.
 * System is implemented to take advantage of a local memcache instance. It will still run without an instance present.
+
+# Images
+
+![Image of Login](https://github.com/Matthew9799/Farm_Bot/blob/master/login.JPG)
+
+
+![Image of Dash](https://github.com/Matthew9799/Farm_Bot/blob/master/main.JPG)
+
+
+![Image of Parts](https://github.com/Matthew9799/Farm_Bot/blob/master/parts.JPG)
