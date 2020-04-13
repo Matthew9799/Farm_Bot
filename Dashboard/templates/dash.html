@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+</head>
+<body>
+    <div id="navbar" style=" z-index: 1; max-width:100% !important; opacity: .98; height: 70px !important; padding-top: 22px; padding-right: 5%; background-color: #367C2B; position: fixed;"
+    class="container sticky">
+    <div class="row">
+      <div class="col-8" style="width: auto;">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <a id="link1" href="/Dashboard"
+          style="text-decoration: none !important;color:white;cursor:pointer;">Dashboard</a> &nbsp;&nbsp;
+        <a id="link2" href="/Parts"
+          style="text-decoration: none !important;color:white;cursor:pointer;">Parts</a> &nbsp;&nbsp;
+        <a id="link3" href="/Equipment"
+          style="text-decoration: none !important;color:white;cursor:pointer;">Equipment</a> &nbsp;&nbsp;
+          <a id="link5" href="/Suppliers"
+          style="text-decoration: none !important;color:white;cursor:pointer;">Suppliers</a> &nbsp;&nbsp;
+          <a id="link5" href="/Locations"
+          style="text-decoration: none !important;color:white;cursor:pointer;">Locations</a> &nbsp;&nbsp;
+          <a id="link5" href="/Admin"
+          style="text-decoration: none !important;color:white;cursor:pointer;">Admin</a> &nbsp;
+        </div>
+      <div class="col-sm" style="position: relative;  width:auto; text-align: right;">
+        <a id="link4" href="/Logout"
+          style="position: relative; text-decoration: none !important;color:white;cursor:pointer;">Log Out</a>
+      </div>
+    </div>
+  </div>
+  <br>
+
+    <div align="right" style="padding-left: 5%; padding-right: 5%; margin-right: 0%;padding-top: 70px;">
+        <table id="example" class="display" ></table>
+    </div>
+    <br>
+
+    <footer style="height: 200px;">
+        <br>
+        <div align="center">
+            This software is property of BrentCo, SCLewis Farms, and Brad Enterprises.
+        </div>
+    </footer>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Verification</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+               <div class="form-group">
+    <label for="delete_quant">Quantity</label>
+    <select class="form-control" id="delete_quant">
+
+    </select>
+  </div>
+            </div>
+            <div class="modal-footer">
+                <div style="position: relative; margin-right: 280px;">
+                    <button style="text-align: left;" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-warning" style="overflow: hidden;
+                    white-space: nowrap;" onclick="deletePart()">Save Change</button>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    <div id="data_id" style="display: none">
+
+    </div>
+</body>
+<script>
+    var dataSet = [["teset", "test", "test", "45%" ],["teset", "test", "test", "20%"]
+    ];
+
+$(document).ready(function() {
+    $('#example').DataTable( {
+        type: "GET",
+        ajax: {
+            url: location.origin + "/Dashboard/Data",
+            dataSrc: "data"
+
+        },
+        bAutoWidth: false,
+        columns: [
+            { data: "name", title: "Part Name" },
+            { data: "create", title: "Day Installed" },
+            { data: "installed", title: "Installed In" },
+            {data: "quantity", title: "Quantity"},
+            { data: "life", title: "Life Remaining"},
+            {
+                data: "id",
+                sWidth: "200px",
+                render: function ( data, type, row ) {
+                return '<button onclick="checkOut('+data+')" type="button" class="btn btn-danger">Part Failed/Replaced</button>';
+            }
+        }
+        ]
+    } );
+} );
+</script>
+<script>
+    function checkOut(data) {
+        $("#data_id")[0].innerHTML = data
+        data = {id: data}
+        $.ajax({
+            type: "POST",
+            url: location.origin+"/Dashboard/Quantity",
+            data: "sendData=" + JSON.stringify(data),
+            dataType: "json",
+            success: function (data) {
+                res = ""
+
+                for(i = 1; i <= data.quantity; i++) {
+                    res += '<option value="'+i+'">'+i+'</option>'
+                }
+
+                $("#delete_quant").html(res)
+
+                $("#exampleModalCenter").modal()
+            },
+            error: function () {
+              alert("OPERATION FAILED. TRY AGAIN")
+            }
+          });
+    }
+</script>
+<script>
+    function deletePart() {
+        id = {id: $("#data_id")[0].innerHTML, quantity: $("#delete_quant").val()}
+        $.ajax({
+            type: "POST",
+            url: location.origin+"/Dashboard/Delete",
+            data: "sendData=" + JSON.stringify(id),
+            dataType: "json",
+            success: function (data) {
+                $("#exampleModalCenter").modal('toggle')
+                location.reload()
+            },
+            error: function () {
+              alert("OPERATION FAILED. TRY AGAIN")
+            }
+          });
+    }
+</script>
+</html>
